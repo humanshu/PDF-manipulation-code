@@ -49,10 +49,10 @@ public class iText {
 	 * @return returns first word before space from the input string
 	 */
 	private static String getFirstWord(String text) {
-		if (text.indexOf(' ') > -1) { 						  // check if there is more than one word.
+		if (text.indexOf(' ') > -1) { 				 // check if there is more than one word.
 			return text.substring(0, text.indexOf(' '));	 // extract first word.
 		} else {
-			return text; 		  							// text is the first word itself.
+			return text; 		  			 // text is the first word itself.
 		}
 	}
 
@@ -78,7 +78,7 @@ public class iText {
 		for (i = 0; i < (pageNoNextToToc - 1); i++) {
 			newPagesList.remove(0);
 		}	
-		stamper.getReader().selectPages(newPagesList);									// list contains all pages except TOC pages
+		stamper.getReader().selectPages(newPagesList);		   // list contains all pages except TOC pages
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class iText {
 		List<HashMap> bookmarks = SimpleBookmark.getBookmark(stamper.getReader());
 		// add all other bookmarks in the new list except TOC bookmarks
 		for (int i = 0; i < bookmarks.size(); i++) {								
-			String title = ((String) bookmarks.get(i).get("Title"));				// title = "Table of Contents"
+			String title = ((String) bookmarks.get(i).get("Title"));	// title = "Table of Contents"
 			if (!title.equals(removeBookmark))										
 				bookmarksList.add(bookmarks.get(i));
 		}	
@@ -109,11 +109,11 @@ public class iText {
 		String removeBookmark = "Table of Contents";
 		PdfStamper stamper = new PdfStamper(new PdfReader(inputFile),new FileOutputStream(outputFile));
 		PdfReader reader = new PdfReader(inputFile);																			
-		List<HashMap<Object,Object>> bookmarks = SimpleBookmark.getBookmark(reader);					// read input file and store its bookmarks in a list
-		String pageNoNextToTocString = (String) bookmarks.get(1).get("Page");			// extract page no next to TOC	
+		List<HashMap<Object,Object>> bookmarks = SimpleBookmark.getBookmark(reader);	// read input file and store its bookmarks in a list
+		String pageNoNextToTocString = (String) bookmarks.get(1).get("Page");		// extract page no next to TOC	
 		int pageNoNextToToc = Integer.parseInt(getFirstWord(pageNoNextToTocString));	// search first word before space, as TOC next page no string contains other meta-information
 		removePages(stamper, pageNoNextToToc);											// remove all TOC pages
-		removeTOCBookmark(removeBookmark, stamper);								// remove TOC bookmark
+		removeTOCBookmark(removeBookmark, stamper);					// remove TOC bookmark
 
 	}
 	// @formatter:on
